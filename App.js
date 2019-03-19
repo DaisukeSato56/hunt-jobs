@@ -15,22 +15,34 @@ import DeckScreen from "./screens/DeckScreen";
 import SettingScreen from "./screens/SettingScreen";
 import ReviewScreen from "./screens/ReviewScreen";
 
-const MainNavigator = createBottomTabNavigator({
-  welcome: { screen: WelcomeScreen },
-  auth: { screen: AuthScreen },
-  main: {
-    screen: createBottomTabNavigator({
-      map: { screen: MapScreen },
-      deck: { screen: DeckScreen },
-      review: {
-        screen: createStackNavigator({
-          review: { screen: ReviewScreen },
-          settings: { screen: SettingScreen }
-        })
-      }
-    })
+const MainNavigator = createBottomTabNavigator(
+  {
+    welcome: {
+      screen: WelcomeScreen,
+      navigationOptions: { tabBarVisible: false }
+    },
+    auth: { screen: AuthScreen },
+    main: {
+      navigationOptions: { tabBarVisible: false },
+      screen: createBottomTabNavigator({
+        map: { screen: MapScreen },
+        deck: { screen: DeckScreen },
+        review: {
+          screen: createStackNavigator({
+            review: { screen: ReviewScreen },
+            settings: { screen: SettingScreen }
+          })
+        }
+      })
+    }
+  },
+  {
+    navigationOptions: {
+      tabBar: { visible: false }
+    },
+    lazy: true
   }
-});
+);
 
 const AppContainer = createAppContainer(MainNavigator);
 
